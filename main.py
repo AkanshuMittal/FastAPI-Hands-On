@@ -10,6 +10,11 @@ def root():
 def create_posts():
     return {"messages": "Hello Friends"}
 
+@app.post("/create_posts")
+def create_post(payload : dict = Body(...)):
+    print(payload)
+    return {"messages": "successfully created posts"}
+
 @app.post("/createposts")
 def create_posts():
-    return {"messages": "Hey, How are you?"}
+    return {"new_post": f"title"}
