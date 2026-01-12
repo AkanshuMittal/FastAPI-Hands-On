@@ -6,3 +6,7 @@ app = FastAPI()
 def root():
     return {"messages": "Hello World"}
 
+@app.get("/posts")
+def create_posts():
+    return {"messages": "Hello Friends"}
+
