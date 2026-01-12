@@ -10,3 +10,6 @@ def root():
 def create_posts():
     return {"messages": "Hello Friends"}
 
+@app.post("/createposts")
+def create_posts():
+    return {"messages": "Hey, How are you?"}
