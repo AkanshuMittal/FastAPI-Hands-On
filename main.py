@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.params import Body
 
 app = FastAPI()
 
@@ -10,11 +11,13 @@ def root():
 def create_posts():
     return {"messages": "Hello Friends"}
 
-@app.post("/create_posts")
+@app.post("/createposts")
 def create_post(payload : dict = Body(...)):
     print(payload)
-    return {"messages": "successfully created posts"}
+    return {"new_post": f"title{payload['title']} content:{payload['content']}"}
 
-@app.post("/createposts")
+@app.post("/create_posts")
 def create_posts():
-    return {"new_post": f"title"}
+    return {"messages": "Hello, How are you?"}
+
+
