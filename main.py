@@ -29,8 +29,9 @@ def create_posts():
 #     return {"messages": "Hello, How are you?"}
 
 
-@app.post("/createposts")
+@app.post("/posts")
 def create_posts(post: Post):
+    print(post)
     print(post.dict())
     return {"data": "post"}
 
