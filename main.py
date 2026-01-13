@@ -14,7 +14,7 @@ def create_posts():
 @app.post("/createposts")
 def create_post(payload : dict = Body(...)):
     print(payload)
-    return {"new_post": f"title{payload['title']} content:{payload['content']}"}
+    return {"new_post": f"title : {payload['title']} content : {payload['content']}"}
 
 @app.post("/create_posts")
 def create_posts():
