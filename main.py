@@ -35,11 +35,19 @@ my_posts = [{"title": "title of psot 1", "content": "Content of post 1", "id": 1
 #     return {"messages": "Hello, How are you?"}
 
 
+# @app.post("/posts")
+# def create_posts(post: Post):
+#     print(post)
+#     print(post.dict())
+#     return {"data": "post"}
+
+
 @app.post("/posts")
 def create_posts(post: Post):
-    print(post)
-    print(post.dict())
-    return {"data": "post"}
+    post_dict=post.dict()
+    post_dict['id']=randrange(0, 1000000)
+    my_posts.append(post_dict)
+    return {"data": post_dict}
 
 
 
