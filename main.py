@@ -25,6 +25,13 @@ def get_posts():
     return {"data": my_posts}
 
 my_posts = [{"title": "title of psot 1", "content": "Content of post 1", "id": 1}, {"title": "favourite fruits", "content": "I like grapes", "id": 2}]
+
+
+def find_post(id):
+    for p in my_posts:
+        if p['id']==id:
+            return p
+        
 # @app.post("/createposts")
 # def create_post(payload : dict = Body(...)):
 #     print(payload)
@@ -50,4 +57,15 @@ def create_posts(post: Post):
     return {"data": post_dict}
 
 
+# # Get one post 
+# @app.get("/posts/{id}")
+# def get_post(id):
+#     print(id)
+#     return {"post_detail": f"Here is the post {id}"}
 
+
+@app.get("/posts/{id}")
+def get_posts(id: int):   # validation
+    post = find_post(id)
+    print(post)
+    return {"post_detail": post}
