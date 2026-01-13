@@ -19,13 +19,18 @@ def root():
 def create_posts():
     return {"messages": "Hello Friends"}
 
+# @app.post("/createposts")
+# def create_post(payload : dict = Body(...)):
+#     print(payload)
+#     return {"new_post": f"title : {payload['title']} content : {payload['content']}"}
+
+# @app.post("/create_posts")
+# def create_posts():
+#     return {"messages": "Hello, How are you?"}
+
+
 @app.post("/createposts")
-def create_post(payload : dict = Body(...)):
-    print(payload)
-    return {"new_post": f"title : {payload['title']} content : {payload['content']}"}
-
-@app.post("/create_posts")
-def create_posts():
-    return {"messages": "Hello, How are you?"}
-
+def create_posts(post: Post):
+    print(post.Dict())
+    return {"data": "post"}
 
