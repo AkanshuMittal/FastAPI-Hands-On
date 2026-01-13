@@ -31,6 +31,8 @@ def create_posts():
 
 @app.post("/createposts")
 def create_posts(post: Post):
-    print(post.Dict())
+    print(post.dict())
     return {"data": "post"}
+
+
 
