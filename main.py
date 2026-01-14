@@ -95,6 +95,10 @@ def get_post(id: int, response: Response):
 @app.delete("/posts/{id}")
 def delete_post(id: int):
     index = find_post_index(id)
+
+    if index == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} was not found")
+    
     my_posts.pop(index)
     return {"message": "Post successfully deleted"}
 
