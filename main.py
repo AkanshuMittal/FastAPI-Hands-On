@@ -31,6 +31,11 @@ def find_post(id):
     for p in my_posts:
         if p['id']==id:
             return p
+
+def find_post_index(id):
+    for i,p in enumerate(my_posts):
+        if p["id"]==id:
+            return i
         
 # @app.post("/createposts")
 # def create_post(payload : dict = Body(...)):
@@ -86,3 +91,10 @@ def get_post(id: int, response: Response):
         raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,
                               detail=f"post with id: {id} was not found")
     return {"post_detail": post}
+
+@app.delete("/posts/{id}")
+def delete_post(id: int):
+    index = find_post_index(id)
+    my_posts.pop(index)
+    return {"message": "Post successfully deleted"}
+
