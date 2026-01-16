@@ -104,6 +104,7 @@ def delete_post(id: int):
     my_posts.pop(index)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
+#update the post
 @app.put("/posts/{id}")
 def update_post(id: int, post: Post):
     index = find_post_index(id)
