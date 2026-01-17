@@ -121,3 +121,10 @@ def update_post(id: int, post: Post):
     my_posts[index] = post_dict
 
     return {"data": post_dict}
+
+
+try: 
+    conn = RealDictCursor(host="",database="", user="", password="")
+
+except Exception as error:
+    
