@@ -18,6 +18,7 @@ class Post(BaseModel):
 # database connection
 while True:
     try:
+        conn = psycopg2.connect(host="localhost", dbname="fastapi", user="postgres", password="akanshu2307@#", cursor_factory=RealDictCursor)
         cursor = conn.cursor()   # for performing all the database operations or executing queries
         print("Database connection was successful")
         break
@@ -104,7 +105,8 @@ def create_posts(post: Post):
 
 @app.get("/posts/{id}")
 def get_post(id: int, response: Response):
-    post = find_post(id)
+    cursor.execute("SELECT * FROM posts WHERE id = %s", (str(id),))
+    post = cursor.fetchone()
     if not post:
         raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,
                               detail=f"post with id: {id} was not found")
