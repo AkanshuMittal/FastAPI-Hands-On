@@ -11,7 +11,18 @@ class Post(BaseModel):
     title: str
     content: str
     published: bool = True
-    rating: Optional[int] = None
+    #rating: Optional[int] = None
+    
+# database connection
+while True:
+    try:
+        cursor = conn.cursor()   # for performing all the database operations or executing queries
+        print("Database connection was successful")
+        break
+    except Exception as error:
+        print("Connecting to database failed")
+        print("Error:", error)
+        time.sleep(2)
 
 app = FastAPI()
 
@@ -123,8 +134,5 @@ def update_post(id: int, post: Post):
     return {"data": post_dict}
 
 
-try: 
-    conn = RealDictCursor(host="",database="", user="", password="")
 
-except Exception as error:
-    
+
