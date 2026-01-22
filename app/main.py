@@ -7,6 +7,8 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 import time
 
+app = FastAPI()
+
 class Post(BaseModel):
     title: str
     content: str
@@ -24,7 +26,6 @@ while True:
         print("Error:", error)
         time.sleep(2)
 
-app = FastAPI()
 
 @app.get("/")
 def root():
@@ -36,7 +37,9 @@ def root():
 
 @app.get("/posts")
 def get_posts():
-    return {"data": my_posts}
+    cursor.execute("SELECT * FROM posts")
+    posts = cursor.fetchall()
+    return {"data": posts}
 
 my_posts = [{"title": "title of psot 1", "content": "Content of post 1", "id": 1}, {"title": "favourite fruits", "content": "I like grapes", "id": 2}]
 
