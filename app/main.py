@@ -18,7 +18,6 @@ class Post(BaseModel):
 # database connection
 while True:
     try:
-        conn = psycopg2.connect(host="localhost", dbname="fastapi", user="postgres", password="akanshu2307@#", cursor_factory=RealDictCursor)
         cursor = conn.cursor()   # for performing all the database operations or executing queries
         print("Database connection was successful")
         break
