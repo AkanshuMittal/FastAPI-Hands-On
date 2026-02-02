@@ -18,6 +18,7 @@ class Post(BaseModel):
 # database connection
 while True:
     try:
+        conn = psycopg2.connect(host="localhost", dbname="fastapi", user="postgres", password="akanshu2307@#", cursor_factory=RealDictCursor)
         cursor = conn.cursor()   # for performing all the database operations or executing queries
         print("Database connection was successful")
         break
@@ -135,6 +136,6 @@ def update_post(id: int, post: Post):
     if updated_post == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} was not found")
 
-    return {"data": updated_post}
+    return {"data": updated_post}  
 
 
