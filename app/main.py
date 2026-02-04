@@ -47,7 +47,7 @@ def test_posts(db: Session = Depends(get_db)):
     posts = db.query(models.Post).all()
     return posts
 
-@app.get("/posts")
+@app.get("/posts", response_model=schema.Post)
 def get_posts(db: Session = Depends(get_db)):
     # cursor.execute("SELECT * FROM posts")
     # posts = cursor.fetchall()
@@ -121,7 +121,7 @@ def create_posts(post: schema.PostCreate, db: Session = Depends(get_db)):
 
 
 @app.get("/posts/{id}")
-def get_post(id: int, response: Response, db: Session = Depends(get_db)):
+def get_post(id: int, response: Response, db: Session = Depends(get_db), response_model=schema.Post):
     # cursor.execute("SELECT * FROM posts WHERE id = %s", (str(id),))
     # post = cursor.fetchone()
     post = db.query(models.Post).filter(models.Post.id == id).first()
@@ -151,7 +151,7 @@ def delete_post(id: int, db: Session = Depends(get_db)):
 
 #update the post
 @app.put("/posts/{id}")
-def update_post(id: int, updated_post: schema.PostCreate, db: Session = Depends(get_db)):
+def update_post(id: int, updated_post: schema.PostCreate, db: Session = Depends(get_db), response_model=schema.Post):
     # cursor.execute("UPDATE posts SET title=%s, content=%s, published=%s WHERE id =%s RETURNING *", 
     #                 (post.title, post.content, post.published, str(id)))
     # updated_post = cursor.fetchone()
