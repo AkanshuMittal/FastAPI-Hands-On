@@ -9,6 +9,7 @@ import time
 from sqlalchemy.orm import Session
 from . import models, schema
 from .database import engine, get_db
+from typing import List
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -47,7 +48,7 @@ def test_posts(db: Session = Depends(get_db)):
     posts = db.query(models.Post).all()
     return posts
 
-@app.get("/posts", response_model=schema.Post)
+@app.get("/posts", response_model=List[schema.Post])
 def get_posts(db: Session = Depends(get_db)):
     # cursor.execute("SELECT * FROM posts")
     # posts = cursor.fetchall()
