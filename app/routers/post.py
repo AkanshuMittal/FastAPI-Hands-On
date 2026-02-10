@@ -13,7 +13,7 @@ router = APIRouter(
 def root():
     return {"Hello World"}
 
-# @app.get("/posts")
+# @app.get("/")
 # def create_posts():
 #     return {"messages": "Hello Friends"}
 
@@ -22,7 +22,7 @@ def test_posts(db: Session = Depends(get_db)):
     posts = db.query(models.Post).all()
     return posts
 
-@router.get("/posts", response_model=List[schema.Post])
+@router.get("/", response_model=List[schema.Post])
 def get_posts(db: Session = Depends(get_db)):
     # cursor.execute("SELECT * FROM posts")
     # posts = cursor.fetchall()
@@ -42,24 +42,24 @@ def find_post_index(id):
         if p["id"]==id:
             return i
         
-# @app.post("/createposts")
+# @app.post("/")
 # def create_post(payload : dict = Body(...)):
 #     print(payload)
 #     return {"new_post": f"title : {payload['title']} content : {payload['content']}"}
 
-# @app.post("/create_posts")
+# @app.post("/")
 # def create_posts():
 #     return {"messages": "Hello, How are you?"}
 
 
-# @app.post("/posts")
+# @app.post("/")
 # def create_posts(post: Post):
 #     print(post)
 #     print(post.dict())
 #     return {"data": "post"}
 
 
-@router.post("/posts", status_code=status.HTTP_201_CREATED, response_model=schema.Post)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schema.Post)
 def create_posts(post: schema.PostCreate, db: Session = Depends(get_db)):
     # cursor.execute("INSERT INTO posts (title, content, published) VALUES (%s, %s, %s) RETURNING *", 
     #                 (post.title, post.content, post.published))
@@ -74,19 +74,19 @@ def create_posts(post: schema.PostCreate, db: Session = Depends(get_db)):
 
 
 # # Get one post 
-# @app.get("/posts/{id}")
+# @app.get("/{id}")
 # def get_post(id):
 #     print(id)
 #     return {"post_detail": f"Here is the post {id}"}
 
 
-# @app.get("/posts/{id}")
+# @app.get("/{id}")
 # def get_posts(id: int):   # validation
 #     post = find_post(id)
 #     print(post)
 #     return {"post_detail": post}
 
-# @app.get("/posts/{id}")
+# @app.get("/{id}")
 # def get_post(id: int, response: Response):
 #     post = find_post(id)
 #     if not post:
@@ -95,7 +95,7 @@ def create_posts(post: schema.PostCreate, db: Session = Depends(get_db)):
 #     return {"post_detail": post}
 
 
-@router.get("/posts/{id}")
+@router.get("/{id}")
 def get_post(id: int, response: Response, db: Session = Depends(get_db), response_model=schema.Post):
     # cursor.execute("SELECT * FROM posts WHERE id = %s", (str(id),))
     # post = cursor.fetchone()
@@ -108,7 +108,7 @@ def get_post(id: int, response: Response, db: Session = Depends(get_db), respons
 
 ##  Delete the post
 
-@router.delete("/posts/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_post(id: int, db: Session = Depends(get_db)):
     # cursor.execute("DELETE FROM posts WHERE id = %s RETURNING *", (str(id),))
     # deleted_post = cursor.fetchone()
@@ -125,7 +125,7 @@ def delete_post(id: int, db: Session = Depends(get_db)):
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 #update the post
-@router.put("/posts/{id}")
+@router.put("/{id}")
 def update_post(id: int, updated_post: schema.PostCreate, db: Session = Depends(get_db), response_model=schema.Post):
     # cursor.execute("UPDATE posts SET title=%s, content=%s, published=%s WHERE id =%s RETURNING *", 
     #                 (post.title, post.content, post.published, str(id)))
