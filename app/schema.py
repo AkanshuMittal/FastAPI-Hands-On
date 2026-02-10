@@ -18,6 +18,11 @@ class Post(PostBase):
         orm_mode = True
         
         
-class UserCreate(PostBase):
+class UserCreate(BaseModel):
     email: EmailStr
     password: str
+    
+class UserOut(BaseModel):
+    id: int
+    email: EmailStr
+    created_at: datetime
